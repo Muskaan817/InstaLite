@@ -1,9 +1,11 @@
 const express = require("express");
+const usersRoutes = require("./routes/users");
 
 const app = express();
 
 app.use(express.json());
 
+// Root endpoint - API documentation & status
 app.get("/", (req, res) => {
   res.status(200).json({
     message: "Welcome to InstaLite API",
@@ -16,9 +18,12 @@ app.get("/", (req, res) => {
   });
 });
 
-
+// Health check endpoint
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK" });
 });
+
+// Mount user routes
+app.use("/users", usersRoutes);
 
 module.exports = app;
