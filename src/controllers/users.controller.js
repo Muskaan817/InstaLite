@@ -178,10 +178,70 @@ async function remove(req, res) {
   }
 }
 
+async function getUserPosts(req, res) {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const existingUser = await usersService.getUserById(id);
+    if (!existingUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const pagination = parsePagination(req.query);
+    if (pagination.error) {
+      return res.status(400).json({ error: pagination.error });
+    }
+
+    const { total, data } = await usersService.getUserPosts(id, {
+      skip: pagination.skip,
+      take: pagination.take,
+    });
+
+    const meta = buildMeta(pagination.page, pagination.limit, total);
+    return res.status(200).json({ data, meta });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+async function getUserLikedPosts(req, res) {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const existingUser = await usersService.getUserById(id);
+    if (!existingUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const pagination = parsePagination(req.query);
+    if (pagination.error) {
+      return res.status(400).json({ error: pagination.error });
+    }
+
+    const { total, data } = await usersService.getUserLikedPosts(id, {
+      skip: pagination.skip,
+      take: pagination.take,
+    });
+
+    const meta = buildMeta(pagination.page, pagination.limit, total);
+    return res.status(200).json({ data, meta });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal server error" });
+  }
+}
+
 module.exports = {
   create,
   list,
   getOne,
   update,
   remove,
+  getUserPosts,
+  getUserLikedPosts,
 };
