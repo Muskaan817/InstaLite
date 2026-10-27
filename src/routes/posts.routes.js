@@ -9,7 +9,6 @@ router.get("/:id", postsController.getOne);
 router.patch("/:id", postsController.update);
 router.delete("/:id", postsController.remove);
 
-// Likes endpoints
 router.get("/:id/likes", postsController.getLikes);
 router.post("/:id/likes", likesController.likePost);
 router.delete("/:id/likes/:userId", likesController.unlikePost);

@@ -48,7 +48,6 @@ async function list(req, res) {
 
     const where = {};
 
-    // search filter
     if (req.query.search && typeof req.query.search === "string" && req.query.search.trim()) {
       const search = req.query.search.trim();
       where.OR = [
@@ -57,7 +56,6 @@ async function list(req, res) {
       ];
     }
 
-    // isPrivate filter
     if (req.query.isPrivate !== undefined) {
       if (req.query.isPrivate === "true") {
         where.isPrivate = true;
@@ -68,7 +66,6 @@ async function list(req, res) {
       }
     }
 
-    // hasPosts filter
     if (req.query.hasPosts !== undefined) {
       if (req.query.hasPosts === "true") {
         where.posts = { some: {} };
@@ -79,7 +76,6 @@ async function list(req, res) {
       }
     }
 
-    // sortBy & order
     const sortBy = req.query.sortBy || "createdAt";
     const allowedSortBy = ["username", "fullname", "createdAt"];
     if (!allowedSortBy.includes(sortBy)) {

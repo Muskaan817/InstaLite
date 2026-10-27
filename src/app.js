@@ -6,7 +6,6 @@ const app = express();
 
 app.use(express.json());
 
-// Root endpoint - API documentation & status
 app.get("/", (req, res) => {
   res.status(200).json({
     message: "Welcome to InstaLite API",
@@ -19,12 +18,10 @@ app.get("/", (req, res) => {
   });
 });
 
-// Health check endpoint
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK" });
 });
 
-// Mount modular routes
 app.use("/users", usersRoutes);
 app.use("/posts", postsRoutes);
 

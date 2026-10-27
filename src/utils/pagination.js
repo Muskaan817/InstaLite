@@ -16,7 +16,6 @@ function parsePagination(query) {
       return { error: "page and limit must be positive integers" };
     }
     limit = parseInt(limitStr, 10);
-    // Max limit is 50
     if (limit > 50) {
       limit = 50;
     }

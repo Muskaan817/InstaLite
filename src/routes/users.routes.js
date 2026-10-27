@@ -8,7 +8,6 @@ router.get("/:id", usersController.getOne);
 router.patch("/:id", usersController.update);
 router.delete("/:id", usersController.remove);
 
-// Relational endpoints
 router.get("/:id/posts", usersController.getUserPosts);
 router.get("/:id/liked-posts", usersController.getUserLikedPosts);
 

@@ -55,7 +55,6 @@ async function list(req, res) {
 
     const where = {};
 
-    // search filter
     if (req.query.search && typeof req.query.search === "string" && req.query.search.trim()) {
       const search = req.query.search.trim();
       where.OR = [
@@ -64,12 +63,10 @@ async function list(req, res) {
       ];
     }
 
-    // location filter
     if (req.query.location && typeof req.query.location === "string" && req.query.location.trim()) {
       where.location = { contains: req.query.location.trim() };
     }
 
-    // sortBy & order
     const sortBy = req.query.sortBy || "createdAt";
     const allowedSortBy = ["createdAt", "updatedAt", "likes"];
     if (!allowedSortBy.includes(sortBy)) {
