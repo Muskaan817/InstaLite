@@ -1,5 +1,6 @@
 const express = require("express");
 const usersRoutes = require("./routes/users.routes");
+const postsRoutes = require("./routes/posts.routes");
 
 const app = express();
 
@@ -23,7 +24,8 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK" });
 });
 
-// Mount user routes
+// Mount modular routes
 app.use("/users", usersRoutes);
+app.use("/posts", postsRoutes);
 
 module.exports = app;
